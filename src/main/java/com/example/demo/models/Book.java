@@ -9,6 +9,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -48,4 +50,7 @@ public class Book {
 
     @Field(type = FieldType.Integer, name="bookPrice")
     private int bookPrice;
+
+    @Field(name = "bookReview")
+    private List<Review> bookReview;
 }

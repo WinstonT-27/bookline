@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookline - Cart</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/cart.css}" type="text/css">
+</head>
+<body>
+    <img class="header-logo" th:src="@{/img/bookline_logo.png}" style="height: 6.0rem; padding-left: 20px; padding-top: 5px">
+    <ul>
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a href="#">Browse</a></li>
+        <li><a href="#">About</a></li>
+        <li class="float-right-nav">
+            <a th:href="@{/profile/my_account}">Profile</a>
+        </li>
+        <li class="float-right-nav">
+            <a th:href="@{/cart}">Cart</a>
+        </li>
+    </ul>
+    <div class="content">
+        <h2>
+            My Cart
+        </h2>
+        <p th:if="${message != null}" th:text="${message}"></p>
+        <div th:each="cart : ${cartList}">
+            <p th:value="${cart.quantity}" style="visibility: hidden" id="quantity"></p>
+            <img th:src="${cart.book.bookImage}">
+            <table>
+                <tr>
+                    <td>
+                        <strong>Title</strong>
+                    </td>
+                    <td>
+                        <div th:text="${cart.book.bookTitle}" class="cart-item"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Author</strong>
+                    </td>
+                    <td>
+                        <div th:text="${cart.book.bookAuthor}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Price</strong>
+                    </td>
+                    <td>
+                        <div th:text="${cart.book.bookPrice}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Quantity</b>
+                    </td>
+                    <td>
+                        <div th:text="'x' + ${cart.quantity}"></div>
+                        <a th:href="@{/cart/change_quantity/{title}(title=${cart.book.getBookTitle()})}">
+                            <button >Change Quantity</button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            Total:
+            <b th:text="'Rp. ' + ${totalPrice}" th:if="${totalPrice != null}"></b>
+            <b th:text="'Rp. 0'" th:if="${totalPrice == null}"></b>
+        </p>
+        <a th:href="@{/checkout}" th:if="${totalPrice != null}">
+            <button>Checkout</button>
+        </a>
+    </div>
+</body>
+</html>

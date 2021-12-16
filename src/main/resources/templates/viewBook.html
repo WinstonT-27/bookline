@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookline</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/header.css}" href="css/header.css" type="text/css">
+</head>
+<body>
+<img class="header-logo" th:src="@{/img/bookline_logo.png}" style="height: 6.0rem; padding-left: 20px; padding-top: 5px">
+<ul>
+    <li><a th:href="@{/}">Home</a></li>
+    <li><a href="#">Browse</a></li>
+    <li><a href="#">About</a></li>
+    <li class="float-right-nav">
+        <a th:href="@{/profile/my_account}">Profile</a>
+    </li>
+    <li class="float-right-nav">
+        <a th:href="@{/cart}">Cart</a>
+    </li>
+</ul>
+<br>
+<div class="content">
+    <img th:src="${book.bookImage}" class="view-book-image">
+    <div class="book-details-container">
+        <h2 class="book-title" th:text="${book.bookTitle}"></h2>
+        <h5 th:text="'Rp. ' + ${book.bookPrice}"></h5>
+        <div>Written by
+            <a th:href="@{/books/author/{author}(author=${book.bookAuthor})}" th:text="' ' + ${book.bookAuthor}" class="small-link"></a>
+        </div>
+        <div>Category:
+            <a th:href="@{books/category/{category}(category=${book.bookCategory})}" th:text="' ' + ${book.bookCategory}" class="small-link"></a>
+        </div>
+        <br>
+        <div>
+            <a th:href="@{cart/add/{title}(title=${book.getBookTitle()})}">
+                <button class="button-large">
+                    <img src="https://i.postimg.cc/rpnpnLLj/shopping-cart.png" class="icon-image">
+                </button>
+            </a>
+            <a th:href="@{/wishlist/add/{title}(title=${book.getBookTitle()})}">
+                <button class="button-large">
+                    <img src="https://i.postimg.cc/DzWxGWdr/heart.png" class="icon-image">
+                </button>
+            </a>
+        </div>
+        <br><br>
+        <strong>Description</strong>
+        <p th:text="${book.bookDescription}"></p>
+        <strong>Book details</strong>
+        <table class="short-table">
+            <tr>
+                <td>
+                    <img src="https://i.postimg.cc/90dG6fbZ/Release-year-removebg-preview.png" class="table-icon">
+                </td>
+                <td>
+                    Release year
+                </td>
+                <td th:text="${book.yearPublished}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="https://i.postimg.cc/VL9RTKZp/isbn-removebg-preview.png" class="table-icon">
+                </td>
+                <td>
+                    ISBN-13
+                </td>
+                <td th:text="${book.bookIsbn}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="https://i.postimg.cc/pXKGvWr0/pages-removebg-preview.png" class="table-icon">
+                </td>
+                <td>
+                    Pages
+                </td>
+                <td th:text="${book.bookPages}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

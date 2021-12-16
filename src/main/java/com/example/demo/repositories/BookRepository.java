@@ -17,7 +17,7 @@ public interface BookRepository extends ElasticsearchRepository<Book, String> {
 
     List<Book> findBookByBookTitleContaining(String searchQuery);
 
-    void deleteBookByBookTitle(String bookTitle);
+    void deleteBookByBookIsbn(String bookIsbn);
 
     List<Book> findAllBy();
 
